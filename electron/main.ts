@@ -63,27 +63,39 @@ var API_URL = ""
   })
 
   autoUpdater.on("checking-for-update", () => {
-    console.log("Checking for updates...")
+    mainWindow.webContents.executeJavaScript(
+      `console.log("[Updater] Checking for updates...")`
+    )
   })
 
   autoUpdater.on("update-available", (info) => {
-    console.log("Update available:", info.version)
+    mainWindow.webContents.executeJavaScript(
+      `console.log("[Updater] Update available: ${info.version}")`
+    )
   })
 
   autoUpdater.on("update-not-available", () => {
-    console.log("No updates available")
+    mainWindow.webContents.executeJavaScript(
+      `console.log("[Updater] No updates available")`
+    )
   })
 
   autoUpdater.on("download-progress", (progress) => {
-    console.log(`Download: ${progress.percent.toFixed(1)}%`)
+    mainWindow.webContents.executeJavaScript(
+      `console.log("[Updater] Download: ${progress.percent.toFixed(1)}%")`
+    )
   })
 
   autoUpdater.on("update-downloaded", () => {
-    console.log("Update downloaded")
+    mainWindow.webContents.executeJavaScript(
+      `console.log("[Updater] Update downloaded")`
+    )
   })
 
   autoUpdater.on("error", (err) => {
-    console.error("Updater error:", err)
+    mainWindow.webContents.executeJavaScript(
+      `console.error("[Updater]", ${JSON.stringify(err.message)})`
+    )
   })
 
   autoUpdater.checkForUpdates().catch(console.error)
