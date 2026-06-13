@@ -62,6 +62,30 @@ var API_URL = ""
     }, 30_000)
   })
 
+  autoUpdater.on("checking-for-update", () => {
+    console.log("Checking for updates...")
+  })
+
+  autoUpdater.on("update-available", (info) => {
+    console.log("Update available:", info.version)
+  })
+
+  autoUpdater.on("update-not-available", () => {
+    console.log("No updates available")
+  })
+
+  autoUpdater.on("download-progress", (progress) => {
+    console.log(`Download: ${progress.percent.toFixed(1)}%`)
+  })
+
+  autoUpdater.on("update-downloaded", () => {
+    console.log("Update downloaded")
+  })
+
+  autoUpdater.on("error", (err) => {
+    console.error("Updater error:", err)
+  })
+
   autoUpdater.checkForUpdates().catch(console.error)
 
   setInterval(
