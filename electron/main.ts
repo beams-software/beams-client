@@ -108,7 +108,7 @@ var API_URL = ""
     }
   })
 
-  globalShortcut.register("CommandOrControl+Shift+Q", () => {
+  globalShortcut.register("CommandOrControl+U", () => {
     mainWindow.close()
   })
   globalShortcut.register("CommandOrControl+Shift+F", () => {
