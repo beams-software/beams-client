@@ -1,0 +1,47 @@
+{
+  "name": "beams-client-electron",
+  "version": "1.0.0",
+  "description": "An app specifically tailored for BSC Elections at Blossom Public School",
+  "license": "ISC",
+  "author": "Ritheesh",
+  "type": "commonjs",
+  "main": "dist-electron/main.js",
+  "build": {
+    "appId": "me.ritheesh.beams-client",
+    "productName": "Blossom Voting Client",
+    "files": [
+      "dist-electron/**/*",
+      "out/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Blossom Voting Client"
+    }
+  },
+  "scripts": {
+    "package:electron": "electron-builder --win --x64 --ia32"
+  },
+  "devDependencies": {
+    "electron": "^42.4.0",
+    "electron-builder": "^26.15.3"
+  },
+  "dependencies": {
+    "electron-prompt": "^1.7.0",
+    "electron-serve": "^3.0.1"
+  }
+}

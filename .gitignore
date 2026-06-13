@@ -34,3 +34,10 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+dist/
+extracted/
+
+electron/node_modules
+electron/out
+electron/dist-electron

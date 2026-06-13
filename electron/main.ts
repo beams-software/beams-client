@@ -1,8 +1,8 @@
-import { app, BrowserWindow, Menu, globalShortcut } from "electron"
-import serve from "electron-serve"
-import prompt from "electron-prompt"
-import dgram from "dgram"
-import os from "os"
+import { app, BrowserWindow, Menu, globalShortcut } from "electron";
+import serve from "electron-serve";
+import prompt from "electron-prompt";
+import * as dgram from "dgram";
+import * as os from "os";
 
 const DISCOVERY_PORT = 12345
 const DISCOVERY_MESSAGE = Buffer.from("DISCOVER_SERVER")
@@ -43,7 +43,7 @@ var API_URL = ""
   sendDiscoveryMessages()
 
   Menu.setApplicationMenu(null)
-  mainWindow.setKiosk(false)
+  mainWindow.setKiosk(true)
 
   function startDiscovery() {
     clearInterval(interval)
