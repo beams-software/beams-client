@@ -1,5 +1,8 @@
 # BEAMS Client
 To build:
-`npm ci`
+
+`npm ci` 
+
 `cd electron && npm ci`
+
 `cd .. && npm run package`
