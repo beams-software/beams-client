@@ -2,9 +2,12 @@ import { app, BrowserWindow, Menu, globalShortcut } from "electron"
 import serve from "electron-serve"
 import prompt from "electron-prompt"
 import dgram from "dgram"
+import os from "os";
 
 const DISCOVERY_PORT = 12345
 const DISCOVERY_MESSAGE = Buffer.from("DISCOVER_SERVER")
+
+const computerName = os.hostname()
 
 const client4 = dgram.createSocket("udp4")
 client4.bind(() => {
@@ -62,6 +65,8 @@ var API_URL = ""
       `localStorage.getItem(${JSON.stringify(key)})`
     )
   }
+
+  await setLocalStorage("computerName", computerName)
 
   client4.on("message", async (msg, rinfo) => {
     if (msg.toString().startsWith("SERVER_HERE")) {
