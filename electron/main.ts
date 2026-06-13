@@ -44,69 +44,6 @@ var API_URL = ""
 ;(async () => {
   await app.whenReady()
 
-  autoUpdater.on("update-available", () => {
-    new Notification({
-      title: "Blossom Voting Client",
-      body: "Downloading update...",
-    }).show()
-  })
-
-  autoUpdater.on("update-downloaded", () => {
-    new Notification({
-      title: "Blossom Voting Client",
-      body: "Update downloaded. Restarting in 30 seconds.",
-    }).show()
-
-    setTimeout(() => {
-      autoUpdater.quitAndInstall()
-    }, 30_000)
-  })
-
-  autoUpdater.on("checking-for-update", () => {
-    mainWindow.webContents.executeJavaScript(
-      `console.log("[Updater] Checking for updates...")`
-    )
-  })
-
-  autoUpdater.on("update-available", (info) => {
-    mainWindow.webContents.executeJavaScript(
-      `console.log("[Updater] Update available: ${info.version}")`
-    )
-  })
-
-  autoUpdater.on("update-not-available", () => {
-    mainWindow.webContents.executeJavaScript(
-      `console.log("[Updater] No updates available")`
-    )
-  })
-
-  autoUpdater.on("download-progress", (progress) => {
-    mainWindow.webContents.executeJavaScript(
-      `console.log("[Updater] Download: ${progress.percent.toFixed(1)}%")`
-    )
-  })
-
-  autoUpdater.on("update-downloaded", () => {
-    mainWindow.webContents.executeJavaScript(
-      `console.log("[Updater] Update downloaded")`
-    )
-  })
-
-  autoUpdater.on("error", (err) => {
-    mainWindow.webContents.executeJavaScript(
-      `console.error("[Updater]", ${JSON.stringify(err.message)})`
-    )
-  })
-
-  autoUpdater.checkForUpdates().catch(console.error)
-
-  setInterval(
-    () => {
-      autoUpdater.checkForUpdates().catch(console.error)
-    },
-    1000 * 60 * 30
-  )
-
   const mainWindow = new BrowserWindow()
 
   var interval = setInterval(sendDiscoveryMessages, 5000)
@@ -138,6 +75,69 @@ var API_URL = ""
 
   mainWindow.webContents.once("did-finish-load", async () => {
     await setLocalStorage("computerName", computerName)
+
+    autoUpdater.on("update-available", () => {
+      new Notification({
+        title: "Blossom Voting Client",
+        body: "Downloading update...",
+      }).show()
+    })
+
+    autoUpdater.on("update-downloaded", () => {
+      new Notification({
+        title: "Blossom Voting Client",
+        body: "Update downloaded. Restarting in 30 seconds.",
+      }).show()
+
+      setTimeout(() => {
+        autoUpdater.quitAndInstall()
+      }, 30_000)
+    })
+
+    autoUpdater.on("checking-for-update", () => {
+      mainWindow.webContents.executeJavaScript(
+        `console.log("[Updater] Checking for updates...")`
+      )
+    })
+
+    autoUpdater.on("update-available", (info) => {
+      mainWindow.webContents.executeJavaScript(
+        `console.log("[Updater] Update available: ${info.version}")`
+      )
+    })
+
+    autoUpdater.on("update-not-available", () => {
+      mainWindow.webContents.executeJavaScript(
+        `console.log("[Updater] No updates available")`
+      )
+    })
+
+    autoUpdater.on("download-progress", (progress) => {
+      mainWindow.webContents.executeJavaScript(
+        `console.log("[Updater] Download: ${progress.percent.toFixed(1)}%")`
+      )
+    })
+
+    autoUpdater.on("update-downloaded", () => {
+      mainWindow.webContents.executeJavaScript(
+        `console.log("[Updater] Update downloaded")`
+      )
+    })
+
+    autoUpdater.on("error", (err) => {
+      mainWindow.webContents.executeJavaScript(
+        `console.error("[Updater]", ${JSON.stringify(err.message)})`
+      )
+    })
+
+    autoUpdater.checkForUpdates().catch(console.error)
+
+    setInterval(
+      () => {
+        autoUpdater.checkForUpdates().catch(console.error)
+      },
+      1000 * 60 * 30
+    )
   })
 
   client4.on("message", async (msg, rinfo) => {
