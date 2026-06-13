@@ -1,8 +1,15 @@
-import { app, BrowserWindow, Menu, globalShortcut } from "electron";
-import serve from "electron-serve";
-import prompt from "electron-prompt";
-import * as dgram from "dgram";
-import * as os from "os";
+import {
+  app,
+  BrowserWindow,
+  Menu,
+  globalShortcut,
+  Notification,
+} from "electron"
+import serve from "electron-serve"
+import prompt from "electron-prompt"
+import * as dgram from "dgram"
+import * as os from "os"
+import { autoUpdater } from "electron-updater"
 
 const DISCOVERY_PORT = 12345
 const DISCOVERY_MESSAGE = Buffer.from("DISCOVER_SERVER")
@@ -36,6 +43,33 @@ const loadURL = serve({ directory: "out" })
 var API_URL = ""
 ;(async () => {
   await app.whenReady()
+
+  autoUpdater.on("update-available", () => {
+    new Notification({
+      title: "Blossom Voting Client",
+      body: "Downloading update...",
+    }).show()
+  })
+
+  autoUpdater.on("update-downloaded", () => {
+    new Notification({
+      title: "Blossom Voting Client",
+      body: "Update downloaded. Restarting in 30 seconds.",
+    }).show()
+
+    setTimeout(() => {
+      autoUpdater.quitAndInstall()
+    }, 30_000)
+  })
+
+  autoUpdater.checkForUpdates().catch(console.error)
+
+  setInterval(
+    () => {
+      autoUpdater.checkForUpdates().catch(console.error)
+    },
+    1000 * 60 * 30
+  )
 
   const mainWindow = new BrowserWindow()
 
