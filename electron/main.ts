@@ -2,7 +2,7 @@ import { app, BrowserWindow, Menu, globalShortcut } from "electron"
 import serve from "electron-serve"
 import prompt from "electron-prompt"
 import dgram from "dgram"
-import os from "os";
+import os from "os"
 
 const DISCOVERY_PORT = 12345
 const DISCOVERY_MESSAGE = Buffer.from("DISCOVER_SERVER")
@@ -66,7 +66,9 @@ var API_URL = ""
     )
   }
 
-  await setLocalStorage("computerName", computerName)
+  mainWindow.webContents.once("did-finish-load", async () => {
+    await setLocalStorage("computerName", computerName)
+  })
 
   client4.on("message", async (msg, rinfo) => {
     if (msg.toString().startsWith("SERVER_HERE")) {
@@ -100,7 +102,7 @@ var API_URL = ""
       clearInterval(interval)
       const apiURL = `http://[${rinfo.address.split("%")[0]}]:${msg.toString().split(":")[1]}`
       await setLocalStorage("API_URL", apiURL)
-      
+
       mainWindow.reload()
       if (showAlertUDP) {
         showAlertUDP = false
@@ -145,7 +147,7 @@ var API_URL = ""
 
   globalShortcut.register("CommandOrControl+Shift+U", () => {
     startDiscovery()
-    showAlertUDP = true;
+    showAlertUDP = true
   })
 
   // The above is equivalent to this:
