@@ -313,6 +313,12 @@ export default function LoginPage() {
           <span>Reconnecting to election server...</span>
         </div>
       )}
+      {!(heartbeat.data ? heartbeat.data.v : true) && (
+        <div className="fixed inset-0 flex items-center justify-center bg-background/75">
+          <Spinner className="m-3 size-6" />
+          <span>Voting has been paused...</span>
+        </div>
+      )}
     </div>
   )
 }
