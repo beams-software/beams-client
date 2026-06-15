@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query"
 import { Spinner } from "@/components/ui/spinner"
 import { Voting } from "./voting"
 import axiosRetry from "axios-retry";
+import confetti from "canvas-confetti"
 
 axiosRetry(axios, {
   retries: 3,
@@ -121,6 +122,36 @@ export default function LoginPage() {
 
   const [successString, setSuccessString] = useState("")
   const [errorString, setErrorString] = useState("")
+
+  const voteSubmissionConfetti = () => {
+    const end = Date.now() + 3 * 1000 // 3 seconds
+    const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"]
+
+    const frame = () => {
+      if (Date.now() > end) return
+
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        startVelocity: 60,
+        origin: { x: 0, y: 0.5 },
+        colors: colors,
+      })
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        startVelocity: 60,
+        origin: { x: 1, y: 0.5 },
+        colors: colors,
+      })
+
+      requestAnimationFrame(frame)
+    }
+
+    frame()
+  }
 
   const heartbeat = useQuery({
     queryKey: ["heartbeat"],
@@ -281,7 +312,8 @@ export default function LoginPage() {
                   if (res.data.status === 200) {
                     setLoginLoading(false);
                     setVoterInfo(null);
-                    setSuccessString("SUCCESS: Your vote has been submitted!")
+                    setSuccessString("SUCCESS: Your vote has been submitted!");
+                    voteSubmissionConfetti()
                   }else{
                     setLoginLoading(false);
                     setVoterInfo(null);
