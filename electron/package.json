@@ -1,6 +1,6 @@
 {
   "name": "beams-client-electron",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "An app specifically tailored for BSC Elections at Blossom Public School",
   "license": "ISC",
   "author": "Ritheesh",
@@ -24,6 +24,7 @@
       "target": [
         {
           "target": "nsis",
+          "artifactName": "Blossom-Voting-Client-Setup-${version}.${ext}",
           "arch": [
             "x64",
             "ia32"
