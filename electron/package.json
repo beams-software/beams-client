@@ -1,6 +1,6 @@
 {
   "name": "beams-client-electron",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "An app specifically tailored for BSC Elections at Blossom Public School",
   "license": "ISC",
   "author": "Ritheesh",
@@ -10,13 +10,11 @@
     "appId": "me.ritheesh.beams-client",
     "productName": "Blossom Voting Client",
     "publish": [
-      {
-        "provider": "github",
-        "owner": "beams-software",
-        "repo": "beams-client",
-        "releaseType": "release"
-      }
-    ],
+    {
+      "provider": "generic",
+      "url": "https://your-update-server.com"
+    }
+  ],
     "files": [
       "dist-electron/**/*",
       "out/**/*",
