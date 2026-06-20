@@ -296,9 +296,9 @@ export function Voting({
               {currentPosAndCad?.candidates.map((cad) => {
                 return (
                   <div key={cad.admid}>
-                    <div className="grid grid-cols-3" key={cad.admid}>
+                    <div className="grid grid-cols-[500px_auto_auto]" key={cad.admid}>
                       <div
-                        className="m-5 grid h-min grid-cols-3 self-center justify-self-center"
+                        className="m-5 ml-50 grid h-min grid-cols-[0.2fr_0.2fr_auto] self-center "
                         key={`${cad.admid}-details`}
                       >
                         <p>Name</p>
