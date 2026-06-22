@@ -135,10 +135,7 @@ const visibleDataSchema = z.array(
         house: z.enum(["WINTER", "SUMMER", "SPRING"]),
         startingVotes: z.number(),
         photo: z.string(),
-        positionId: z.number(),
-        _count: z.object({
-          votes: z.number(),
-        }),
+        positionId: z.number()
       })
     ),
   })
@@ -159,10 +156,7 @@ const currentPosAndCadSchema = z.object({
       house: z.enum(["WINTER", "SUMMER", "SPRING"]),
       startingVotes: z.number(),
       photo: z.string(),
-      positionId: z.number(),
-      _count: z.object({
-        votes: z.number(),
-      }),
+      positionId: z.number()
     })
   ),
 })
