@@ -96,10 +96,7 @@ export const candidateResponseSchema = z.object({
           house: z.enum(["WINTER", "SUMMER", "SPRING"]),
           startingVotes: z.number(),
           photo: z.string(),
-          positionId: z.number(),
-          _count: z.object({
-            votes: z.number(),
-          }),
+          positionId: z.number()
         })
       ),
     })
@@ -339,16 +336,16 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10">
       {render()}
-      {isDisconnected && (
-        <div className="fixed inset-0 flex items-center justify-center bg-background/75">
-          <Spinner className="m-3 size-6" />
-          <span>Reconnecting to election server...</span>
-        </div>
-      )}
       {!(heartbeat.data ? heartbeat.data.v : true) && (
         <div className="fixed inset-0 flex items-center justify-center bg-background/75">
           <Spinner className="m-3 size-6" />
           <span>Voting has been paused...</span>
+        </div>
+      )}
+      {isDisconnected && (
+        <div className="fixed inset-0 flex items-center justify-center bg-background/75">
+          <Spinner className="m-3 size-6" />
+          <span>Reconnecting to election server...</span>
         </div>
       )}
     </div>
