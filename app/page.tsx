@@ -265,9 +265,13 @@ export default function LoginPage() {
           <div className="w-full max-w-sm md:max-w-4xl">
             <LoginConfirm
               onYes={() => {
+                setSuccessString("")
+                setErrorString("")
                 setProgress(Progress.Voting)
               }}
               onNo={() => {
+                setSuccessString("")
+                setErrorString("")
                 setVoterInfo(null)
                 setProgress(Progress.LoginForm)
               }}
